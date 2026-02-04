@@ -152,14 +152,7 @@ export default function ComingSoonPageWithCaps() {
         </div>
       </div>
 
-      {/* Bottom URL Bar */}
-      <div className="bg-white border-t border-gray-200 mt-8">
-        <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-4">
-          <p className="text-[10px] text-gray-500">
-            https://www.borderlessidentity.com
-          </p>
-        </div>
-      </div>
+      
     </div>
     <Footer />
     </>

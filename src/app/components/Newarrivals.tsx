@@ -162,7 +162,7 @@ export default function ProductCarousel({
                   // Fallback: couleur de fond si pas d'image
                   <div 
                     className="w-full h-full"
-                    style={{ backgroundColor: product.color || '#cccccc' }}
+                    style={{ backgroundColor: (product as any).color || '#cccccc' }}
                   />
                 )}
                 
