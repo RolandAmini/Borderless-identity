@@ -7,35 +7,35 @@ export default function CoreCollection() {
   const products = [
     {
       id: 1,
-      name: 'BALMORE LOGO HOODIE GREY MARL',
+      name: 't-shirt',
       price: 'KSh22,500.00 KES',
       image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=533&fit=crop',
       slug: 'balmore-logo-hoodie-grey-marl'
     },
     {
       id: 2,
-      name: 'BURCHAM LOGO CREW GREY MARL',
+      name: 't-shirt',
       price: 'KSh17,100.00 KES',
       image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=533&fit=crop',
       slug: 'burcham-logo-crew-grey-marl'
     },
     {
       id: 3,
-      name: 'WOOLMORE LOGO JOGGER GREY MARL',
+      name: 't-shirt',
       price: 'KSh20,700.00 KES',
       image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=533&fit=crop',
       slug: 'woolmore-logo-jogger-grey-marl'
     },
     {
       id: 4,
-      name: 'BALMORE LOGO HOODIE BLACK',
+      name: 't-shirt BLACK',
       price: 'KSh22,500.00 KES',
       image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=533&fit=crop&sat=-100',
       slug: 'balmore-logo-hoodie-black'
     },
     {
       id: 5,
-      name: 'CARRADALE LOGO HOODIE BLACK',
+      name: 't-shirt ',
       price: 'KSh22,500.00 KES',
       image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&h=533&fit=crop&sat=-100',
       slug: 'carradale-logo-hoodie-black'

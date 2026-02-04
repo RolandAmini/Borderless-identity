@@ -10,35 +10,35 @@ import Footer from '@/app/components/Footer';
 const comingSoonProducts = [
   {
     id: 1,
-    name: 'LA 001 STRUCTURED TRUCKER',
+    name: 't-shirt',
     status: 'COMING SOON',
     capColor: '#1e4d8b', // Bleu royal
     bgColor: '#e8e8e8',
   },
   {
     id: 2,
-    name: 'LA 001 TWILL TRUCKER',
+    name: 't-shirt',
     status: 'COMING SOON',
     capColor: '#6b7a8f', // Gris bleuté
     bgColor: '#ebebeb',
   },
   {
     id: 3,
-    name: 'LA 001 STRUCTURED TRUCKER',
+    name: 'CAP',
     status: 'COMING SOON',
     capColor: '#1a1a1a', // Noir
     bgColor: '#e5e5e5',
   },
   {
     id: 4,
-    name: 'LA 001 SNAPBACK',
+    name: ' SNAPBACK',
     status: 'COMING SOON',
     capColor: '#2a4a6f', // Bleu marine
     bgColor: '#f0f0f0',
   },
   {
     id: 5,
-    name: 'LOGO TRUCKER CAP',
+    name: ' CAP',
     status: 'COMING SOON',
     capColor: '#f8f8f8', // Blanc cassé
     bgColor: '#efefef',
@@ -132,7 +132,7 @@ export default function ComingSoonPageWithCaps() {
                     
                     {/* Petit logo LA au centre */}
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 text-white text-xs font-bold opacity-60">
-                      LA
+                      CAP
                     </div>
                   </div>
                 </div>

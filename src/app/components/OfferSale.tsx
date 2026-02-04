@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function OfferSale() {
   return (
-    <div className="w-full max-w-5xl min-h-[280px] md:h-[300px] bg-[#0025a8] bg-gradient-to-br from-[#0025a8] via-blue-700 to-blue-500 rounded-2xl relative overflow-hidden shadow-2xl shadow-blue-500/30 font-sans flex flex-col justify-center p-8 md:p-0">
+    <div className="w-full max-w-5xl min-h-[280px] md:h-[300px] bg-blue-700 rounded-2xl relative overflow-hidden shadow-2xl shadow-blue-500/30 font-sans flex flex-col justify-center p-8 md:p-0">
   
   {/* Titre : Centré sur mobile, à gauche sur desktop */}
   <h1 className="md:absolute md:top-1/2 md:left-12 md:-translate-y-1/2 text-[#D2D2C2] text-4xl sm:text-5xl md:text-[3.5rem] font-black leading-tight drop-shadow-2xl [-webkit-text-stroke:0.5px_rgba(0,0,0,0.3)] mb-2 md:mb-0">
