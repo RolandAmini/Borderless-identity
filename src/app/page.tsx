@@ -1,65 +1,117 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import Image from 'next/image';
+import Navbar from './components/Navbar';
+import NewArrivalsButton from './components/NewArrivalsButton';
+import Newarrivals from './components/Newarrivals';
+import ShopByCategory from './components/ShopByCategory';
+import OfferSale from './components/OfferSale';
+import CoreCollection from './components/Corecollection';
+import Footer from './components/Footer';
+
+export default function LosAngelesStore() {
+  const [mounted, setMounted] = useState(false);
+  const { scrollY } = useScroll();
+  const logoY = useTransform(scrollY, [0, 300], [0, -50]);
+  const logoOpacity = useTransform(scrollY, [0, 200], [1, 0]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="min-h-screen bg-zinc-900 text-white">
+      {/* Navigation */}
+      <Navbar />
+   
+
+      {/* Hero Section */}
+      <section className="relative  h-screen flex items-center mb-0 justify-center overflow-hidden">
+        {/* Background Image */}
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/lo1.jpeg"
+          alt="Borderless Identity Global Collection"
+          fill
           priority
+          sizes="90vw"
+          style={{ objectFit: 'cover' }}
+          quality={90}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Dark Overlay for better text visibility */}
+        <div className="absolute inset-0 bg-black/40 z-[1]" />
+
+        {/* Noise Texture Overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none z-[2]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Gradient Overlay (optional, pour plus de profondeur) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900/50 via-transparent to-zinc-900/80 z-[3]" />
+
+        {/* Main Logo */}
+        <motion.div 
+          style={{ y: logoY, opacity: logoOpacity }}
+          className="relative z-[10]"
+        >
+          <motion.h1 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+            className="relative"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {/* Text with Distressed Texture Effect - Arched */}
+           
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-center mt-8"
           >
-            Documentation
-          </a>
-        </div>
-      </main>
+            <p className="text-sm tracking-[0.4em] font-light text-blue-700">
+             
+            </p>
+            <p className="text-xs tracking-[0.3em] font-light text-gray-100 mt-2">
+             
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-[10]"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-px h-16 bg-gradient-to-b from-transparent via-white to-transparent"
+          />
+        </motion.div>
+        <div className="absolute bottom-20 left-8 z-[10]">
+  <NewArrivalsButton />
+</div>
+      </section>
+
+      {/* New Arrivals Section */}
+      
+      < Newarrivals/>
+      <ShopByCategory />
+      <CoreCollection />
+      <OfferSale />
+      <Footer />
     </div>
   );
 }
