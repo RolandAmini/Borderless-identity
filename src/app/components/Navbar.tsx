@@ -129,7 +129,7 @@ export default function Navbar() {
           {/* Navigation Links */}
           <div className="space-y-4">
             <Link 
-              href="/collections" 
+              href="/shop" 
               className="block text-sm font-medium tracking-[0.15em] uppercase text-black hover:text-gray-500 transition-colors py-2"
               onClick={closeMobileMenu}
             >

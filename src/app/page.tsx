@@ -37,7 +37,7 @@ export default function LosAngelesStore() {
           alt="Borderless Identity Global Collection"
           fill
           priority
-          sizes="90vw"
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
           style={{ objectFit: 'cover' }}
           quality={90}
         />
