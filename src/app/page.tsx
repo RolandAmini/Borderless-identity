@@ -30,14 +30,14 @@ export default function LosAngelesStore() {
    
 
       {/* Hero Section */}
-      <section className="relative  h-screen flex items-center mb-0 justify-center overflow-hidden">
+      <section className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] xl:h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <Image
           src="/lo1.jpeg"
           alt="Borderless Identity Global Collection"
           fill
           priority
-         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+         sizes="100vw"
           style={{ objectFit: 'cover' }}
           quality={90}
         />
