@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import Navbar from './components/Navbar'; // Ajuste le chemin selon ton projet
-
+import Navbar from '../../components/Navbar';
 export default async function ProductDetailPage({ params }: { params: { id: string } }) {
   // 1. Chercher le produit dans MongoDB
   const product = await prisma.product.findUnique({
