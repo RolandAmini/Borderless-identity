@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function AdminPage() {
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [formData, setFormData] = useState({
+const [products, setProducts] = useState<any[]>([]);  const [formData, setFormData] = useState({
     name: '',
     description: '',
     price: '',

@@ -99,7 +99,7 @@ export default function CoreCollection({ products = [], isLoading = false }) {
                   {/* Product Image */}
                   <div className="relative aspect-[3/4] bg-[#D2D2C2] mb-4 overflow-hidden">
                     <Image
-                      src={product.images ? product.images[0] : product.image}
+                      src={(product as any).images ? (product as any).images[0] : (product as any).image}
                       alt={product.name}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -114,8 +114,7 @@ export default function CoreCollection({ products = [], isLoading = false }) {
                       {product.name}
                     </h3>
                     <p className="text-xs text-[#D2D2C2]">
-                      {typeof product.price === 'number' ? `KSh${product.price.toLocaleString()}` : product.price}
-                    </p>
+{typeof (product as any).price === 'number' ? `KSh ${(product as any).price.toLocaleString()}` : (product as any).price}                    </p>
                   </div>
                 </Link>
               ))}

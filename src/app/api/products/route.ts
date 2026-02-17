@@ -27,7 +27,6 @@ export async function POST(request: Request) {
         description,
         price: parseFloat(price),
         category,
-        colorTheme,
         images,
       },
     });

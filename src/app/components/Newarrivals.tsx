@@ -165,10 +165,10 @@ export default function ProductCarousel({
               ======================================== */}
               <Link href={`/products/${product.id}`}>
               <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-200 rounded-sm">
-                {product.image || product.images ? (
+                {((product as any).image || (product as any).images) ? (
                   // Image avec Next.js Image pour optimisation
                   <Image
-                    src={product.images ? product.images[0] : product.image}
+                   src={(product as any).images ? (product as any).images[0] : (product as any).image}
                     alt={product.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -177,10 +177,9 @@ export default function ProductCarousel({
                   />
                 ) : (
                   // Fallback: couleur de fond si pas d'image
-                  <div 
-                    className="w-full h-full"
-                    style={{ backgroundColor: product.color || '#cccccc' }}
-                  />
+             <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-zinc-500 text-xs">
+      NO IMAGE
+    </div>
                 )}
                 
                 {/* Overlay blanc au hover */}
@@ -198,7 +197,7 @@ export default function ProductCarousel({
                 
                 {/* Prix du produit */}
                 <p className="text-[10px] sm:text-[11px] md:text-xs font-normal text-black">
-                  {typeof product.price === 'number' ? `KSh${product.price.toLocaleString()}` : product.price}
+                  {typeof (product as any).price === 'number' ? `KSh ${(product as any).price.toLocaleString()}` : (product as any).price}
                 </p>
               </div>
               </Link>
