@@ -114,7 +114,7 @@ export default function CoreCollection({ products = [], isLoading = false }) {
                       {product.name}
                     </h3>
                     <p className="text-xs text-[#D2D2C2]">
-{typeof (product as any).price === 'number' ? `KSh ${(product as any).price.toLocaleString()}` : (product as any).price}                    </p>
+{typeof (product as any).price === 'number' ? `USD ${(product as any).price.toLocaleString()}` : (product as any).price}                    </p>
                   </div>
                 </Link>
               ))}

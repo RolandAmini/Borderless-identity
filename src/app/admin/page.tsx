@@ -113,7 +113,7 @@ const [products, setProducts] = useState<any[]>([]);  const [formData, setFormDa
             />
             <div className="grid grid-cols-2 gap-4">
               <input 
-                type="number" placeholder="PRIX (USD)" 
+                type="number" placeholder="PRICE (USD)" 
                 className="w-full border-b border-black/10 py-2 outline-none focus:border-black text-sm"
                 value={formData.price}
                 onChange={(e) => setFormData({...formData, price: e.target.value})}

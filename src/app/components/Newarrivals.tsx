@@ -197,7 +197,7 @@ export default function ProductCarousel({
                 
                 {/* Prix du produit */}
                 <p className="text-[10px] sm:text-[11px] md:text-xs font-normal text-black">
-                  {typeof (product as any).price === 'number' ? `KSh ${(product as any).price.toLocaleString()}` : (product as any).price}
+                  {typeof (product as any).price === 'number' ? `USD ${(product as any).price.toLocaleString()}` : (product as any).price}
                 </p>
               </div>
               </Link>
