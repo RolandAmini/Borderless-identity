@@ -13,15 +13,42 @@ import Footer from './components/Footer';
 
 export default function LosAngelesStore() {
   const [mounted, setMounted] = useState(false);
+  // --- NOUVEL ÉTAT POUR LES PRODUITS ---
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const { scrollY } = useScroll();
   const logoY = useTransform(scrollY, [0, 300], [0, -50]);
   const logoOpacity = useTransform(scrollY, [0, 200], [1, 0]);
 
   useEffect(() => {
     setMounted(true);
+
+    // --- APPEL À TON BACKEND MONGODB ---
+    async function fetchProducts() {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        const sortedData = data.sort((a: any, b: any) => 
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+        setProducts(data);
+      } catch (error) {
+        console.error("Erreur chargement produits:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchProducts();
   }, []);
 
   if (!mounted) return null;
+
+  // On prend les 6 derniers produits pour New Arrivals
+  const newArrivalsData = products.slice(0, 6);
+
+  const coreCollectionData = products.filter((p: any) => p.category === 'Core');
 
   return (
     <div className="min-h-screen bg-zinc-900 text-white">
@@ -107,9 +134,12 @@ export default function LosAngelesStore() {
 
       {/* New Arrivals Section */}
       
-      < Newarrivals/>
+     <Newarrivals products={products} isLoading={isLoading} />
       <ShopByCategory />
-      <CoreCollection />
+     <CoreCollection 
+        products={products} 
+        isLoading={isLoading} 
+      />
       <OfferSale />
       <Footer />
     </div>

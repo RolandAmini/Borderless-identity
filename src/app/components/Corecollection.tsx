@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function CoreCollection() {
-  const products = [
+export default function CoreCollection({ products = [], isLoading = false }) {
+  // Produits de démonstration
+  const coreCollections = [
     {
       id: 1,
       name: 't-shirt',
@@ -49,6 +50,11 @@ export default function CoreCollection() {
     }
   ];
 
+  // Utiliser les produits fournis ou les produits de démo
+  const displayProducts = products.length > 0 ? products : coreCollections;
+
+  if (isLoading) return null;
+
   return (
     <section className="w-full bg-[#947D1E] py-12 md:py-16">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,16 +90,16 @@ export default function CoreCollection() {
           {/* Scrollable container */}
           <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
             <div className="flex gap-3 md:gap-4 min-w-min pb-4">
-              {products.map((product) => (
+              {displayProducts.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/products/${product.slug}`}
+                  href={`/products/${product.id}`}
                   className="flex-shrink-0 w-[240px] md:w-[260px] group"
                 >
                   {/* Product Image */}
                   <div className="relative aspect-[3/4] bg-[#D2D2C2] mb-4 overflow-hidden">
                     <Image
-                      src={product.image}
+                      src={product.images ? product.images[0] : product.image}
                       alt={product.name}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -108,7 +114,7 @@ export default function CoreCollection() {
                       {product.name}
                     </h3>
                     <p className="text-xs text-[#D2D2C2]">
-                      {product.price}
+                      {typeof product.price === 'number' ? `KSh${product.price.toLocaleString()}` : product.price}
                     </p>
                   </div>
                 </Link>

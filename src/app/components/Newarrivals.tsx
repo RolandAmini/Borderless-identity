@@ -2,13 +2,14 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /**
  * ProductCarousel - Composant de carousel de produits horizontal
  * 
  * @param {string} title - Titre de la section (défaut: "New Arrivals")
  * @param {Array} products - Tableau de produits avec structure: { id, name, price, image, color? }
- * @param {string} backgroundColor - Couleur de fond (défaut: "#f5f5f5")
+ * @param {boolean} isLoading - État de chargement
  * 
  * Exemple d'utilisation:
  * 
@@ -32,13 +33,21 @@ import Image from 'next/image';
 export default function ProductCarousel({ 
   title = "New Arrivals",
   products = [],
-  backgroundColor = "#f5f5f5"
+  isLoading = false
 }) {
   // Fonction pour faire défiler le carousel
   const handleScroll = () => {
     const container = document.getElementById('products-scroll');
     if (container) {
       container.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+
+  // Fonction pour faire retourner le carousel
+  const handleScrollBack = () => {
+    const container = document.getElementById('products-scroll');
+    if (container) {
+      container.scrollBy({ left: -300, behavior: 'smooth' });
     }
   };
 
@@ -82,8 +91,16 @@ export default function ProductCarousel({
     },
   ];
 
-  // Utiliser les produits fournis ou les produits de démonstration
+  // PRIORITÉ : Si MongoDB a des produits, on les utilise. Sinon, démo.
   const displayProducts = products.length > 0 ? products : demoProducts;
+
+  if (isLoading) {
+    return (
+      <div className="py-20 text-center uppercase tracking-widest text-[#006B44]">
+        Loading Collection...
+      </div>
+    );
+  }
 
   return (
     <section 
@@ -146,11 +163,12 @@ export default function ProductCarousel({
               {/* ========================================
                   IMAGE DU PRODUIT
               ======================================== */}
+              <Link href={`/products/${product.id}`}>
               <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-200 rounded-sm">
-                {product.image ? (
+                {product.image || product.images ? (
                   // Image avec Next.js Image pour optimisation
                   <Image
-                    src={product.image}
+                    src={product.images ? product.images[0] : product.image}
                     alt={product.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -161,7 +179,7 @@ export default function ProductCarousel({
                   // Fallback: couleur de fond si pas d'image
                   <div 
                     className="w-full h-full"
-                    style={{ backgroundColor: (product as any).color || '#cccccc' }}
+                    style={{ backgroundColor: product.color || '#cccccc' }}
                   />
                 )}
                 
@@ -180,9 +198,10 @@ export default function ProductCarousel({
                 
                 {/* Prix du produit */}
                 <p className="text-[10px] sm:text-[11px] md:text-xs font-normal text-black">
-                  {product.price}
+                  {typeof product.price === 'number' ? `KSh${product.price.toLocaleString()}` : product.price}
                 </p>
               </div>
+              </Link>
             </motion.div>
           ))}
         </div>
