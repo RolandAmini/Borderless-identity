@@ -102,10 +102,10 @@ const [products, setProducts] = useState<any[]>([]);  const [formData, setFormDa
         
         {/* FORMULAIRE D'AJOUT */}
         <div className="bg-white p-6 md:p-8 shadow-sm border border-black/5">
-          <h1 className="text-2xl font-bold uppercase tracking-tighter mb-8">Nouveau Produit</h1>
+          <h1 className="text-2xl font-bold uppercase tracking-tighter mb-8">New product</h1>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input 
-              placeholder="NOM DU PRODUIT" 
+              placeholder="PRODUCT NAME" 
               className="w-full border-b border-black/10 py-2 outline-none focus:border-black uppercase text-sm"
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -113,7 +113,7 @@ const [products, setProducts] = useState<any[]>([]);  const [formData, setFormDa
             />
             <div className="grid grid-cols-2 gap-4">
               <input 
-                type="number" placeholder="PRIX (KSH)" 
+                type="number" placeholder="PRIX (USD)" 
                 className="w-full border-b border-black/10 py-2 outline-none focus:border-black text-sm"
                 value={formData.price}
                 onChange={(e) => setFormData({...formData, price: e.target.value})}
@@ -136,14 +136,14 @@ const [products, setProducts] = useState<any[]>([]);  const [formData, setFormDa
               disabled={loading}
               className="w-full bg-black text-white py-4 text-xs font-bold uppercase hover:bg-zinc-800 transition-all"
             >
-              {loading ? "EN COURS..." : "AJOUTER AU STOCK"}
+              {loading ? "IN PROGRESS..." : "ADD TO STOCK"}
             </button>
           </form>
         </div>
 
         {/* LISTE DE GESTION (INVENTAIRE) */}
         <div className="bg-white p-6 md:p-8 shadow-sm border border-black/5">
-          <h2 className="text-xl font-bold uppercase tracking-tighter mb-6">Gestion du Stock</h2>
+          <h2 className="text-xl font-bold uppercase tracking-tighter mb-6">Stock Management</h2>
           <div className="divide-y divide-black/5">
             {products.map((p: any) => (
               <div key={p.id} className="py-4 flex items-center justify-between group">
@@ -154,7 +154,7 @@ const [products, setProducts] = useState<any[]>([]);  const [formData, setFormDa
                   <div>
                     <h3 className="text-xs font-bold uppercase">{p.name}</h3>
                     <div className="flex items-center gap-1 text-[10px]">
-                      <span>KSH</span>
+                      <span>USD</span>
                       <input 
                         type="number" 
                         defaultValue={p.price}
@@ -168,7 +168,7 @@ const [products, setProducts] = useState<any[]>([]);  const [formData, setFormDa
                   onClick={() => handleDelete(p.id)}
                   className="text-[10px] font-bold text-red-500 hover:text-red-700 uppercase tracking-widest"
                 >
-                  Supprimer
+                DELETE
                 </button>
               </div>
             ))}
