@@ -142,6 +142,13 @@ export default function Navbar() {
             >
               COMING SOON
             </Link>
+            <Link 
+              href="/about" 
+              className="block text-sm font-medium tracking-[0.15em] uppercase text-black hover:text-gray-500 transition-colors py-2"
+              onClick={closeMobileMenu}
+            >
+              ABOUT
+            </Link>
           </div>
 
           {/* Divider */}

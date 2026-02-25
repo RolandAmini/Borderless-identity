@@ -15,7 +15,7 @@ export default function ShopByCategory() {
     { id: 1, title: 'Caps', image: '/c1.jpg', link: '/collections/shirting' },
     { id: 2, title: 'Bags', image: '/c2.jpg', link: '/collections/accessories' },
     { id: 3, title: 'T-Shirts', image: '/p3.jpeg', link: '/collections/outerwear' },
-    { id: 4, title: 'Footwear', image: '/p5.jpeg', link: '/collections/footwear' },
+    { id: 4, title: 'T-Shirts', image: '/p5.jpeg', link: '/collections/footwear' },
     
   ];
 

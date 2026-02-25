@@ -64,7 +64,7 @@ export default function CoreCollection({ products = [], isLoading = false }) {
             Core collection
           </h2>
           <Link 
-            href="/collections/core"
+            href="/shop"
             className="flex items-center gap-2 text-[#D2D2C2] hover:text-[#D2D2C2] transition-colors group"
             aria-label="View all core collection products"
           >

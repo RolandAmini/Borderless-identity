@@ -2,114 +2,117 @@
 
 import { motion } from 'framer-motion';
 import AIAssistant from '@/app/components/AIAssistant';
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-yellow-100 relative overflow-hidden">
-      {/* Pattern de fond style BD */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
+     <>
+        <Navbar />
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50 relative overflow-hidden">
+      {/* Pattern de fond subtil vert */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
         backgroundImage: `
-          repeating-linear-gradient(0deg, transparent, transparent 2px, black 2px, black 3px),
-          repeating-linear-gradient(90deg, transparent, transparent 2px, black 2px, black 3px)
+          repeating-linear-gradient(45deg, transparent, transparent 20px, #10b98120 20px, #10b98120 21px),
+          repeating-linear-gradient(-45deg, transparent, transparent 20px, #10b98120 20px, #10b98120 21px)
         `,
-        backgroundSize: '50px 50px'
+        backgroundSize: '30px 30px'
       }} />
 
-      {/* Titre en haut - style BD */}
+      {/* Titre en haut - Style moderne Zuri */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="absolute top-8 left-1/2 -translate-x-1/2 text-center z-20"
+        className="absolute top-8 left-1/2 -translate-x-1/2 text-center z-20 px-4"
       >
-        <div className="relative inline-block">
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight text-black uppercase relative z-10"
-            style={{
-              textShadow: '4px 4px 0px rgba(0,0,0,0.2), -2px -2px 0px white',
-              WebkitTextStroke: '2px black'
-            }}
-          >
-            BORDERLESS
-          </h1>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-black uppercase relative z-10 mt-2"
-            style={{
-              textShadow: '3px 3px 0px rgba(0,0,0,0.2), -1px -1px 0px white',
-              WebkitTextStroke: '1.5px black'
-            }}
-          >
-            IDENTITY
-          </h2>
-        </div>
         
-        {/* Sous-titre dans une bulle */}
+        
+        {/* Sous-titre bulle Zuri */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-6 inline-block"
+          className="mt-8 inline-block"
         >
-          <div className="bg-yellow-300 border-4 border-black rounded-full px-8 py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <p className="text-lg font-bold text-black uppercase tracking-wider">
-              Meet Our AI Assistant
-            </p>
-          </div>
+        
         </motion.div>
       </motion.div>
 
-      {/* Effet de rayons style BD */}
+      {/* Effets rayons verts style Zuri */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(12)].map((_, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 0.1, scale: 1 }}
-            transition={{ delay: i * 0.1, duration: 1 }}
-            className="absolute top-1/2 left-1/2 w-1 bg-yellow-400"
+            animate={{ opacity: 0.08, scale: 1 }}
+            transition={{ delay: i * 0.08, duration: 1.2 }}
+            className="absolute top-1/2 left-1/2 w-1 bg-gradient-to-b from-[#0025a8] to-[#006B44]"
             style={{
-              height: '150vh',
-              transform: `rotate(${i * 45}deg)`,
-              transformOrigin: 'center'
+              height: '180vh',
+              transform: `rotate(${i * 30}deg)`,
+              transformOrigin: 'center',
+              filter: 'blur(0.5px)'
             }}
           />
         ))}
       </div>
 
-      {/* Assistant AI Component - Centré */}
-      <div className="relative z-10 w-full h-screen flex items-center justify-center px-4">
-        <AIAssistant />
+      {/* ZURI AI Component - Layout horizontal optimisé */}
+      <div className="relative z-10 w-full h-[90vh] flex items-start justify-center px-8 py-20">
+        <div className="w-full max-w-7xl mx-auto">
+          <AIAssistant />
+        </div>
       </div>
 
-      {/* Éléments décoratifs style BD */}
-      <motion.div
-        initial={{ opacity: 0, rotate: -180 }}
-        animate={{ opacity: 1, rotate: 0 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute top-24 right-12 text-6xl"
-      >
-        ✨
-      </motion.div>
+      {/* Éléments décoratifs Zuri style */}
+      
 
-      <motion.div
-        initial={{ opacity: 0, rotate: 180 }}
-        animate={{ opacity: 1, rotate: 0 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        className="absolute bottom-24 left-12 text-6xl"
-      >
-        💬
-      </motion.div>
 
-      {/* Bulles décoratives */}
+      {/* Bulles décoratives vertes flottantes */}
       <motion.div
-        animate={{ y: [0, -20, 0] }}
-        transition={{ repeat: Infinity, duration: 3 }}
-        className="absolute top-1/4 left-12 w-16 h-16 bg-white border-4 border-black rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+        animate={{ y: [0, -25, 0], rotate: [0, 5, -5, 0] }}
+        transition={{ 
+          y: { repeat: Infinity, duration: 4 },
+          rotate: { repeat: Infinity, duration: 6 }
+        }}
+        className="absolute top-1/4 left-8 w-20 h-20 bg-red-600 border-4 border-[#006B44] rounded-full shadow-[6px_6px_0px_0px_rgba(16,185,129,0.4)] opacity-80"
       />
 
       <motion.div
-        animate={{ y: [0, 20, 0] }}
-        transition={{ repeat: Infinity, duration: 4, delay: 0.5 }}
-        className="absolute bottom-1/4 right-12 w-20 h-20 bg-yellow-300 border-4 border-black rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+        animate={{ y: [0, 25, 0], rotate: [0, -5, 5, 0] }}
+        transition={{ 
+          y: { repeat: Infinity, duration: 5, delay: 1 },
+          rotate: { repeat: Infinity, duration: 7, delay: 1 }
+        }}
+        className="absolute bottom-1/4 right-12 w-24 h-24 bg-gradient-to-br from-emerald-400 to-[#006B44] border-4 border-emerald-600 rounded-full shadow-[6px_6px_0px_0px_rgba(6,182,212,0.4)] opacity-80"
       />
+
+      {/* Particules flottantes Zuri */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          animate={{ 
+            y: [0, -15, 0],
+            x: [0, 10, 0],
+            rotate: [0, 180, 360],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{ 
+            duration: 4 + i,
+            repeat: Infinity,
+            delay: i * 0.3
+          }}
+          className="absolute w-3 h-3 bg-[#947D1E] rounded-full opacity-60"
+          style={{
+            top: `${20 + i * 12}%`,
+            right: `${10 + i * 8}%`,
+            filter: 'blur(0.3px)'
+          }}
+        />
+      ))}
     </div>
+     <Footer />
+       </>
   );
 }

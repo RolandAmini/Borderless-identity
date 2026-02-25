@@ -2,16 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, X } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
+import Link from 'next/link';
 import Image from 'next/image';
 
-// Textes de présentation de la marque
 const brandStory = [
-  "Welcome to Borderless Identity.",
-  "We are redefining fashion beyond borders, cultures, and conventions.",
-  "Our collections celebrate individuality and global unity.",
-  "Each piece is crafted to transcend boundaries and express your unique identity.",
-  "Discover a world where style knows no limits.",
+  "Hi, I'm the Borderless Identity assistant! We're more than a clothing brand, we're a movement.",
+  "We stand for culture without limits. Heritage without restriction. Expression without permission. In a world divided by lines on maps, we celebrate one truth: identity cannot be contained by borders. We're connected to the world.",
+  "Our mission is to empower you to express your unique identity through fashion that transcends boundaries. We blend global influences with local craftsmanship to create pieces as diverse and dynamic as the people who wear them.",
+  "Wear Culture. Live Without Borders."
 ];
 
 interface Message {
@@ -29,22 +28,15 @@ export default function AIAssistant() {
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
 
-  // Apparition de l'assistant au chargement de la page
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 500);
-
+    const timer = setTimeout(() => setIsVisible(true), 500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Animation de typing pour chaque texte
   useEffect(() => {
     if (!isVisible || currentTextIndex >= brandStory.length) {
       if (currentTextIndex >= brandStory.length) {
-        const timer = setTimeout(() => {
-          setShowInput(true);
-        }, 1000);
+        const timer = setTimeout(() => setShowInput(true), 1500);
         return () => clearTimeout(timer);
       }
       return;
@@ -62,26 +54,18 @@ export default function AIAssistant() {
       } else {
         clearInterval(typingInterval);
         setIsTyping(false);
-        setTimeout(() => {
-          setCurrentTextIndex(prev => prev + 1);
-        }, 2000);
+        setTimeout(() => setCurrentTextIndex(prev => prev + 1), 1500);
       }
-    }, 50);
+    }, 60);
 
     return () => clearInterval(typingInterval);
   }, [isVisible, currentTextIndex]);
 
-  // Fonction pour envoyer la question à l'API
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!userQuestion.trim()) return;
 
-    const newMessage: Message = {
-      role: 'user',
-      content: userQuestion,
-    };
-
+    const newMessage: Message = { role: 'user', content: userQuestion };
     setMessages(prev => [...prev, newMessage]);
     setUserQuestion('');
     setIsLoading(true);
@@ -89,36 +73,29 @@ export default function AIAssistant() {
     try {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1000,
-          messages: [
-            {
-              role: 'user',
-              content: `Tu es l'assistant élégant et futuriste de Borderless Identity, une marque de mode qui transcende les frontières et célèbre l'identité unique de chacun. Notre collection combine style urbain, minimalisme et influences globales. Réponds à cette question de manière concise et élégante (maximum 3 phrases) : ${userQuestion}`,
-            },
-          ],
+          messages: [{
+            role: 'user',
+            content: `l'assistante élégante de Borderless Identity. Réponds de manière concise et stylée (max 3 phrases) : ${userQuestion}`
+          }],
         }),
       });
 
       const data = await response.json();
-      
       const aiResponse: Message = {
         role: 'assistant',
         content: data.content[0].text,
       };
-
       setMessages(prev => [...prev, aiResponse]);
     } catch (error) {
-      console.error('Error calling AI:', error);
-      const errorMessage: Message = {
+      console.error('Error:', error);
+      setMessages(prev => [...prev, {
         role: 'assistant',
-        content: "I apologize, but I'm having trouble connecting right now. Please try again or contact us directly.",
-      };
-      setMessages(prev => [...prev, errorMessage]);
+        content: "Oops ! Je rencontre un petit problème. Réessayez ou contactez-nous ! 💬"
+      }]);
     } finally {
       setIsLoading(false);
     }
@@ -127,205 +104,159 @@ export default function AIAssistant() {
   if (!isVisible) return null;
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Avatar principal au centre - GRAND */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ 
-          type: 'spring', 
-          stiffness: 200, 
-          damping: 20,
-          duration: 0.8,
-        }}
-        className="relative z-10"
-      >
-        <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl">
-          <Image
-            src="/assistant-ai_png.png"
-            alt="Borderless Assistant"
-            width={320}
-            height={320}
-            className="w-full h-full object-cover"
-            priority
-          />
-        </div>
-        
-        {/* Indicateur en ligne */}
+    <div className="relative w-full h-full flex items-start justify-center px-4 md:px-8 py-8 md:py-12">
+      
+      {/* ── MOBILE : colonne centrée  ── LAPTOP : ligne comme avant ── */}
+      <div className="flex flex-col items-center md:flex-row md:items-start gap-6 md:gap-8 max-w-4xl w-full">
+
+        {/* ── AVATAR ── */}
         <motion.div
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-8 right-8 w-8 h-8 bg-green-400 rounded-full border-4 border-white shadow-lg"
-        />
-      </motion.div>
-
-      {/* Bulles de parole style BD - À GAUCHE de l'avatar */}
-      <AnimatePresence mode="wait">
-        {currentTextIndex < brandStory.length && (
-          <motion.div
-            key={currentTextIndex}
-            initial={{ opacity: 0, scale: 0.5, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            exit={{ opacity: 0, scale: 0.5, x: -50 }}
-            transition={{ 
-              type: 'spring',
-              stiffness: 200,
-              damping: 20
-            }}
-            className="absolute left-0 top-1/2 -translate-y-1/2 max-w-md ml-8"
-          >
-            {/* Bulle de dialogue style BD */}
-            <div className="relative">
-              {/* Triangle pointant vers l'avatar - style BD */}
-              <svg 
-                className="absolute -right-8 top-1/2 -translate-y-1/2 w-12 h-12" 
-                viewBox="0 0 50 50"
-              >
-                {/* Contour noir */}
-                <path 
-                  d="M 5 15 Q 25 25 5 35 L 5 15" 
-                  fill="black"
-                  stroke="black"
-                  strokeWidth="3"
-                />
-                {/* Remplissage blanc */}
-                <path 
-                  d="M 6 17 Q 22 25 6 33 L 6 17" 
-                  fill="white"
-                />
-              </svg>
-
-              {/* Contenu de la bulle - style bande dessinée */}
-              <div className="relative bg-white rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8">
-                <p className="text-xl md:text-2xl font-bold text-black leading-relaxed uppercase tracking-wide text-center">
-                  {displayedText}
-                  {isTyping && (
-                    <motion.span
-                      animate={{ opacity: [1, 0] }}
-                      transition={{ duration: 0.5, repeat: Infinity }}
-                      className="inline-block w-1 h-6 bg-black ml-1"
-                    />
-                  )}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Messages de chat - style BD */}
-      {messages.length > 0 && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-2xl px-8">
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6 max-h-64 overflow-y-auto">
-            {messages.map((message, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className={`mb-4 last:mb-0 ${message.role === 'user' ? 'text-right' : 'text-left'}`}
-              >
-                <div className={`inline-block max-w-[80%] p-4 rounded-2xl border-3 border-black ${
-                  message.role === 'user'
-                    ? 'bg-gray-900 text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
-                    : 'bg-yellow-100 text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'
-                }`}>
-                  <p className="text-base font-bold">{message.content}</p>
-                </div>
-              </motion.div>
-            ))}
-
-            {isLoading && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-left"
-              >
-                <div className="inline-block bg-yellow-100 p-4 rounded-2xl border-3 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                  <div className="flex gap-2">
-                    <motion.div
-                      animate={{ scale: [1, 1.5, 1] }}
-                      transition={{ repeat: Infinity, duration: 1, delay: 0 }}
-                      className="w-3 h-3 bg-black rounded-full"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.5, 1] }}
-                      transition={{ repeat: Infinity, duration: 1, delay: 0.2 }}
-                      className="w-3 h-3 bg-black rounded-full"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.5, 1] }}
-                      transition={{ repeat: Infinity, duration: 1, delay: 0.4 }}
-                      className="w-3 h-3 bg-black rounded-full"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Prompt pour poser une question */}
-      {showInput && messages.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-md px-8"
+          initial={{ opacity: 0, scale: 0.5, x: -50 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ type: 'spring', stiffness: 300, delay: 0.2 }}
+          className="relative flex-shrink-0"
         >
           <div className="relative">
-            {/* Triangle pointant vers le haut */}
-            <svg 
-              className="absolute left-1/2 -translate-x-1/2 -top-6 w-12 h-8" 
-              viewBox="0 0 50 30"
-            >
-              <path 
-                d="M 25 5 L 5 25 L 45 25 Z" 
-                fill="black"
-              />
-              <path 
-                d="M 25 8 L 8 25 L 42 25 Z" 
-                fill="white"
-              />
-            </svg>
+            <Image
+              src="/assistant-ai.png.png"
+              alt="Smart Assistant"
+              width={320}
+              height={400}
+              /* Mobile : plus petit / Laptop : taille originale */
+              className="w-44 h-56 md:w-72 md:h-96 object-contain drop-shadow-2xl"
+              priority
+            />
 
-            <div className="bg-white rounded-3xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-6 text-center">
-              <p className="text-lg font-bold text-black uppercase mb-4">
-                Any questions? 💬
-              </p>
-            </div>
+            {/* Main levée animée */}
+            <motion.div
+              animate={{
+                y: [0, -5, 0],
+                rotate: [0, 2, -2, 0]
+              }}
+              transition={{
+                y: { repeat: Infinity, duration: 2 },
+                rotate: { repeat: Infinity, duration: 3 }
+              }}
+              className="absolute -top-4 -right-6 md:-right-8 w-14 h-18 md:w-20 md:h-24 bg-[#0025a8] rounded-lg border border-gray-300 flex items-center justify-center shadow-lg"
+              style={{ clipPath: 'polygon(0% 0%, 100% 0%, 85% 100%, 0% 80%)' }}
+            >
+              <div className="w-2 h-2 md:w-3 md:h-3 bg-[#947D1E] rounded-full shadow-md" />
+            </motion.div>
           </div>
         </motion.div>
-      )}
 
-      {/* Input Form - style BD */}
-      {showInput && (
-        <motion.form
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
-          onSubmit={handleSubmit}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 w-full max-w-xl px-8"
-        >
-          <div className="bg-white rounded-full border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-2 flex gap-2">
-            <input
-              type="text"
-              value={userQuestion}
-              onChange={(e) => setUserQuestion(e.target.value)}
-              placeholder="Ask me anything..."
-              className="flex-1 px-6 py-3 text-lg font-bold focus:outline-none bg-transparent"
-              disabled={isLoading}
-            />
-            <button
-              type="submit"
-              disabled={isLoading || !userQuestion.trim()}
-              className="w-14 h-14 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,0.3)] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
+        {/* ── BULLE + CHAT (colonne sur mobile, côte à côte sur laptop) ── */}
+        <div className="flex flex-col items-center md:items-start w-full gap-6">
+
+          {/* Bulle de texte */}
+          <AnimatePresence mode="wait">
+            {currentTextIndex < brandStory.length && (
+              <motion.div
+                key={currentTextIndex}
+                initial={{ opacity: 0, scale: 0.3, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.3, y: 30 }}
+                /* Sur laptop on retrouve l'animation x */
+                // @ts-ignore
+                style={{ '--x-desktop': '100px' }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                className="relative w-full max-w-lg md:max-w-lg"
+              >
+                <div className="bg-[#006B44] rounded-3xl p-5 md:p-8 shadow-2xl border-4 border-green-600/50 drop-shadow-[0_20px_20px_rgba(34,197,94,0.3)]">
+                  <div className="bg-white/90 rounded-2xl p-4 md:p-6 border-2 border-[#947D1E]">
+                    <p className="text-base md:text-xl lg:text-2xl font-bold text-gray-800 leading-relaxed tracking-wide">
+                      {displayedText}
+                      {isTyping && (
+                        <motion.span
+                          animate={{ opacity: [1, 0] }}
+                          transition={{ duration: 0.6, repeat: Infinity }}
+                          className="inline-block w-2 h-6 md:w-3 md:h-8 bg-[#006B44] ml-2 rounded"
+                        />
+                      )}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Queue de bulle — cachée sur mobile, visible sur laptop */}
+                <svg
+                  className="hidden md:block absolute -left-16 top-1/2 -translate-y-1/2 w-16 h-16"
+                  viewBox="0 0 60 60"
+                  fill="none"
+                >
+                  <path
+                    d="M 10 20 Q 30 30 10 40 L 10 20"
+                    fill="url(#gradient)"
+                    stroke="#059669"
+                    strokeWidth="3"
+                    strokeLinejoin="round"
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#22c55e" />
+                      <stop offset="100%" stopColor="#16a34a" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Messages du chat */}
+          {messages.length > 0 && (
+            <div className="space-y-4 max-h-80 overflow-y-auto pr-2 w-full max-w-lg">
+              {messages.map((msg, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`p-4 rounded-2xl shadow-lg max-w-sm ${
+                    msg.role === 'user'
+                      ? 'bg-gray-900 text-white ml-auto'
+                      : 'bg-green-100 text-gray-800 border-l-4 border-[#006B44]'
+                  }`}
+                >
+                  <p className="font-semibold text-sm md:text-base">{msg.content}</p>
+                </motion.div>
+              ))}
+              {isLoading && (
+                <div className="flex gap-2 p-4 bg-green-100 rounded-2xl">
+                  {[0, 0.2, 0.4].map((delay, i) => (
+                    <motion.div
+                      key={i}
+                      className="w-3 h-3 bg-[#006B44] rounded-full"
+                      animate={{ scale: [1, 1.4, 1] }}
+                      transition={{ repeat: Infinity, duration: 0.8, delay }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Bouton Shop Now */}
+          {showInput && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-full max-w-xs md:max-w-none"
             >
-              <Send size={24} />
-            </button>
-          </div>
-        </motion.form>
-      )}
+              <Link href="/shop" className="group block">
+                <div className="flex border border-white/40 hover:border-white/60 transition-colors duration-300">
+                  <div className="bg-transparent px-8 md:px-12 py-4 flex items-center justify-center">
+                    <span className="text-base md:text-[20px] tracking-[0.25em] md:tracking-[0.35em] font-medium text-black uppercase whitespace-nowrap">
+                      Shop Now
+                    </span>
+                  </div>
+                  <div className="bg-[#947D1E] w-14 h-14 md:w-16 md:h-16 flex items-center justify-center group-hover:bg-[#0025a8] transition-colors duration-300 rounded-lg">
+                    <ShoppingCart className="text-white w-5 h-5 md:w-6 md:h-6 transform group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          )}
+
+        </div>
+      </div>
     </div>
   );
 }
