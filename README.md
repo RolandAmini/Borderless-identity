@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+The Borderless Identity
+This is the official repository for The Borderless Identity web application, built with Next.js and deployed via Vercel.
 
-## Getting Started
+## Live Production
 
-First, run the development server:
+The project is officially live and secured at:
+https://theborderlessidentity.com
 
-```bash
+## Tech Stack
+
+Framework: Next.js (App Router)
+
+Deployment: Vercel
+
+Domain Management: Namecheap with custom DNS configuration
+
+Networking: Configured with A Record (216.198.79.1) and CNAME Record (cname.vercel-dns.com)
+
+Optimization: Uses next/font to automatically load and optimize the Geist font family.
+
+## Local Development
+
+Follow these steps to run the project locally:
+git clone https://github.com/your-username/borderless-identity.git
+
+Install dependencies:
+npm install
+# or
+yarn install
+
+Run the development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+app/: Contains the main application logic, routes, and components.
 
-## Learn More
+public/: Static assets including images and icons.
 
-To learn more about Next.js, take a look at the following resources:
+DNS Configuration: The domain is pointed to Vercel's edge network for high performance and global availability.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment & CI/CD
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The project features a continuous deployment pipeline through Vercel. Every push to the main branch triggers an automatic production build and update.
 
-## Deploy on Vercel
+Main Domain: theborderlessidentity.com
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vercel URL: borderless-identity.vercel.app
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed by Roland Amini
